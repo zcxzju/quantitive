@@ -1,16 +1,23 @@
-
-
 class Solution:
     def maxRealValue(self , m , sellPrice , realValue ):
-        # write code here
-        sellPrice_sorted = sorted(sellPrice)
-        realValue_sorted = sorted(realValue,reverse=True)
-        temp_price = 0
-        temp_value = 0
-        for i in range(len(sellPrice)):
-            temp_price += sellPrice_sorted[i]
-            if temp_price <= m:
-                temp_value+=realValue_sorted[i]
-            else:
-                temp_price -= sellPrice_sorted[i]
-        return temp_value
+        sellPrice.sort()
+        realValue.sort(reverse = True)
+        i = 0
+        while i < len(sellPrice) and sum(sellPrice[:i+1]) <= m:
+            i += 1
+        return sum(realValue[:i])
+
+
+m = 800
+# 定义并初始化两个列表，存储n双鞋子的售价和实用价值
+sellPrice = [100, 200, 300, 400, 500]
+realValue = [50, 60, 80, 90, 100]
+
+# 创建一个解决方案对象
+solution = Solution()
+
+# 调用对象中的方法，得到实用价值最大的鞋子组合
+result = solution.maxRealValue(m, sellPrice, realValue)
+
+# 输出结果
+print("The maximum value of shoes that Xiao Zhaomiao can buy is:", result)
